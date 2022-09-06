@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace jwtAuth.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -19,6 +21,7 @@ namespace jwtAuth.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
+        [Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
