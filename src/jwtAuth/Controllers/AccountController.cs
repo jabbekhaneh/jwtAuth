@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace jwtAuth.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class AccountController : ControllerBase
     {
         private List<User> users;
@@ -16,11 +18,13 @@ namespace jwtAuth.Controllers
             };
             _JwtToken = jwtToken;
         }
+
         [HttpPost]
         public IActionResult Auth(User user)
         {
             if (users.Any(_ => _.Password == user.Password &&
-                             _.UserName == user.UserName){
+                             _.UserName == user.UserName))
+            {
                 string token= _JwtToken.Authentication(user.UserName);
                 return Ok(token);
             }
